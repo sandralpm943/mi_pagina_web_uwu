@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint":"ts-standard",
+    "lint": "ts-standard",
     "dev": "ts-node-dev src/index.ts",
     "tsc": "tsc",
     "start": "node build/index.js",
@@ -21,12 +21,15 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "express": "5.1.0"
+    "express": "5.1.0",
+    "pg": "^8.16.3"
   },
   "eslintConfig": {
     "parserOptions": {
-      "project":"./tsconfig.json"
+      "project": "./tsconfig.json"
     },
-    "extends":["./node_modules/ts-standard/eslintrc.json"]
+    "extends": [
+      "./node_modules/ts-standard/eslintrc.json"
+    ]
   }
 }

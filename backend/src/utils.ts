@@ -1,40 +1,55 @@
-import { newDiaryEntry, Weather, Visibility } from "./types";
+import { GatosEntry, razaGatos } from "./types";
 
-const parseComment = (commentFromRequest: any ): string => {
-    if (!isString (commentFromRequest)){
-        throw new Error('incorrecto o comentario invalido puto')
+
+const parserazaGatos = (razaGatosFromrequest: any): razaGatos => {
+    if(!isString(razaGatosFromrequest) || !israzaGatos(razaGatosFromrequest)) {
+        throw new Error ('Ups esta raza aun no esta...')
     }
-    return commentFromRequest
+    return razaGatosFromrequest
+}
+const parsePersonalidad = (personalidadFromRequest: any ): string => {
+    if (!isString (personalidadFromRequest)){
+        throw new Error('no he encontrado la personalidad que buscabas...')
+    }
+    return personalidadFromRequest
 }
 
+const parseDescripcion = (descripcionFromRequest: any ): string => {
+    if (!isString (descripcionFromRequest)){
+        throw new Error('La descripción que buscas aun no esta...')
+    }
+    return descripcionFromRequest
+}
+
+const parseProcedencia = (procedenciaFromRequest: any ): string => {
+    if (!isString (procedenciaFromRequest)){
+        throw new Error('La procedencia no esta...')
+    }
+    return procedenciaFromRequest
+}
+
+const parseDatos_curiosos = (datos_curiososFromRequest: any ): string => {
+    if (!isString (datos_curiososFromRequest)){
+        throw new Error('este dato curioso aun no esta... intentalo otro dia')
+    }
+    return datos_curiososFromRequest
+}
+const parseImagen = (imagenFromRequest: any ): string => {
+    if (!isString (imagenFromRequest)){
+        throw new Error('La imagen no ha sido encontrada!!')
+    }
+    return imagenFromRequest
+}
 const parseDate = (dateFromRequest: any): string => {
     if(!isString(dateFromRequest)|| !isDate(dateFromRequest)){
-        throw new Error('incorrecto o la fecha invailida puto!')
+        throw new Error('La fecha aun no esta o es incorrecta!')
     }
 
     return dateFromRequest
 }
-const parseWeather = (weatherFromrequest: any): Weather => {
-    if(!isString(weatherFromrequest) || !isWeather(weatherFromrequest)) {
-        throw new Error ('incorrecto o tiempo invalido puto!')
-    }
-    return weatherFromrequest
+const israzaGatos = (string:string):boolean => {
+    return typeof string == 'string'
 }
-
-const parseVisibility = (visibilityFromRequest: any): Visibility =>{
-    if (!isString(visibilityFromRequest)|| !isVisibility(visibilityFromRequest)){
-        throw new Error ('Incorrecto o visibilidad incorrecta!')
-    }
-    return visibilityFromRequest
-} 
-
-const isWeather =(param: any): boolean => {
-    return Object.values(Weather).includes(param)
-}
-const isVisibility = (param: any): boolean =>{
-    return Object.values(Visibility).includes(param)
-}
-
 const isString = (string:string):boolean => {
     return typeof string == 'string'
 }
@@ -43,14 +58,20 @@ const isDate = (date: string): boolean =>  {
     return Boolean(Date.parse(date))
 }
 
-const toNewDiaryEntry = (object: any): newDiaryEntry=>{
-    const newEntry: newDiaryEntry = {
-        comment: parseComment(object.comment),
+
+const toNewGatosEntry = (object: any): GatosEntry=>{
+    const newEntry: GatosEntry = {
+        
+        
+        raza: parserazaGatos(object.razaGatos),
+        personalidad: parsePersonalidad(object.personalidad),
+        descripcion: parseDescripcion(object.descripcion),
+        procedencia: parseProcedencia(object.procedencia),
+        datos_curiosos: parseDatos_curiosos(object.datos_curiosos),
+        imagen: parseImagen(object.imagen),
         date: parseDate(object.date),
-        weather: parseWeather(object.weather),
-        visibility: parseVisibility(object.visibility)
         // ... 
     }
     return newEntry
 }
-export default toNewDiaryEntry
+export default toNewGatosEntry

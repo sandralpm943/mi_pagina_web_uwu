@@ -1,28 +1,20 @@
-
-
-export enum Weather{
-    Soleado = 'Soleado',
-    Lluvioso = 'Lluvioso',
-    Nubes = 'Parcialmente soleado',
-    Nublado = 'Nublado'
+export enum razaGatos{
+    Siames = 'Siames',
+    Persa = 'Persa',
+    British = 'British',
+    Ragdoll = 'Ragdoll'
 
 }
-export enum Visibility{
-    Buena = 'Buena',
-    Baja = 'Baja',
-    Moderada = 'Moderada',
-    Perfecto = 'Perfecto'
-
-}
-export interface DiaryEntry{
-    id:number,
-    date:string,
-    weather:Weather,
-    visibility:Visibility,
-    comment:string
+export interface GatosEntry{
+   // id: number,
+    raza: razaGatos,
+    personalidad: string,
+    descripcion: string,
+    procedencia: string,
+    datos_curiosos: string,
+    imagen: string,
+    date: string
+    
 }
 
-//export type NonSensitiveInfoDiaryEntry = Pick<DiaryEntry, 'id' |'date'|'weather'| 'visibility'>
-
-export type NonSensitiveInfoDiaryEntry = Omit<DiaryEntry, 'comment'>
-export type newDiaryEntry = Omit<DiaryEntry, 'id'>
+//export const NonSensitiveInfoDiaryEntry {}
