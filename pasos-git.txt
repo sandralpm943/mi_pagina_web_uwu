@@ -1,0 +1,19 @@
+Pasos para subir el proyecto/repositorio al git
+
+    git add .
+    eso sirve para recoger todos los archivos
+
+    git status
+    para ver que archivos estan seleccionados para pushear/subir
+
+    git rm -r --cached backend/node_modules 
+    git rm -r --cached frontend/node_modules 
+    git rm -r --cached backend/.env
+    los dos comandos de arriba es para eliminar lo que no queremos subir
+
+    git commit -m "comentario" 
+    una vez tenemos todo lo que no queremos eliminado podemos hacer el commit pero acuerdate de revisarlo antes con git status.
+
+    git push
+    este ultimo paso es para subir todo lo que hemos cambiado menos node_modules
+    
