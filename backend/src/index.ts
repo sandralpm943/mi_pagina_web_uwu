@@ -5,10 +5,21 @@ import gatoRouter from './routes/tipos_de_gatos'
 
 import morgan from 'morgan';
 
+import cors from 'cors';
+ 
+import { test } from './dbtest'
+
 
 
 const app = express()
+
+app.use('/uploads', express.static('uploads'));
+
+app.use(cors())
 app.use(morgan('dev'))
+
+console.log(test)
+
 app.use(express.json()) //Midleware que transforma el req.body a un JSON.
 
 
