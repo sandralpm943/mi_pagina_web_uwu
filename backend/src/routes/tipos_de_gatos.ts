@@ -4,7 +4,8 @@ import express from 'express'
 import {upload} from '../milddlewares/upload'
 import {
    insertarGatos,
-   obtenerTiposdeGatos
+   obtenerTiposdeGatos,
+   actualizarGato
 } from '../controllers/tipos_de_gatos.controllers'
 //import toNewGatosEntry from '../utils'
 const router = express.Router()
@@ -16,5 +17,7 @@ router.get('/:id', (_req, res)=>{
 })
 
 router.post('/',upload.single("imagen"), insertarGatos);
+
+router.patch('/:id', actualizarGato);
 
 export default router
