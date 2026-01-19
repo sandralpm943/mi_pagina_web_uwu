@@ -2,8 +2,8 @@ import { pool } from "../db";
 import { Request, Response } from "express";
 import { DB_TABLE_TIPOSGATOS } from "../config";
 
-// import fs from "fs";
-// import path from "path";
+import fs from "fs";
+import path from "path";
 
 
 export const obtenerTiposdeGatos= async (_req: Request, res: Response)=>{
@@ -53,7 +53,7 @@ export const actualizarGato = async (req: Request, res: Response) => {
 
             // borrar imagen antigua del disco (si existe)
             if (data.imagenActual) {
-                const fs = require('fs');
+                // const fs = require('fs');
                 const oldPath = `${process.cwd()}${data.imagenActual}`;
                 if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
             }
@@ -118,21 +118,33 @@ export const eliminarGato = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const { rows } = await pool.query(
+    // 1️⃣ Obtener el servidor antes de borrar
+    const result = await pool.query(
+      `SELECT * FROM ${DB_TABLE_TIPOSGATOS} WHERE id = $1`,
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Gato no encontrado' });
+    }
+
+    const tipo_de_gato = result.rows[0];
+
+    if (tipo_de_gato.imagen) {
+      const imagePath = path.join(process.cwd(), tipo_de_gato.imagen);
+      if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath);
+      }
+    }
+
+    await pool.query(
       `DELETE FROM ${DB_TABLE_TIPOSGATOS}
        WHERE id = $1
        RETURNING *`,
       [id]
     );
 
-    if (rows.length === 0) {
-      return res.status(404).json({ error: "Gato no encontrado" });
-    }
-
-    return res.json({
-      mensaje: "Gato eliminado correctamente",
-      gato: rows[0]
-    });
+    return res.json({ message: 'Gato eliminado correctamente', id });
 
   } catch (error) {
     console.error(error);

@@ -57,13 +57,13 @@
      
       const formData = new FormData()
 
-      formData.append('raza', razaInput.value)
-      formData.append('personalidad', personalidadInput.value)
-      formData.append('descripcion',descripcionInput.value)
-      formData.append('procedencia',procedenciaInput.value)
-      formData.append('datos_curiosos',datos_curiososInput.value)
+      formData.append('raza', razaInput.value);
+      formData.append('personalidad', personalidadInput.value);
+      formData.append('descripcion', descripcionInput.value);
+      formData.append('procedencia', procedenciaInput.value);
+      formData.append('datos_curiosos', datos_curiososInput.value);
 
-      if(imagenFile.value)formData.append('imagen', imagenFile.value)
+      if(imagenFile.value)formData.append('imagen', imagenFile.value);
       
       let data;
 
@@ -283,4 +283,57 @@ const gatosFiltrados = computed(() => {
       </table>
     </section>
   </div>
+  <h1 class="listatitulo">Lista de gatos</h1>
+  <section class="lista">
+    <article v-for="tipo_de_gato in tipos_de_gatos":key="tipo_de_gato.id">
+      
+      <img
+              :src="`http://localhost:3000${tipo_de_gato.imagen}`"
+              alt="Imagen del gato!"
+              width="100">
+      <div>
+      <h2>{{ tipo_de_gato.raza }}</h2>
+      <p class="personalidad">{{ tipo_de_gato.personalidad }}</p>
+      </div>
+    </article>
+  </section>
 </template>
+<style scoped lang="scss">
+  div{
+    .metodoget{
+      background-color: rgb(111, 198, 198);
+    }
+  }
+  .listatitulo{
+    text-align: center;
+  }
+  .lista{
+    background-color: rgb(245, 201, 193);
+    width: 100%;
+    //height: 300px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 15px;
+    justify-content: center;
+    
+    article{
+      background-color: rgb(201, 91, 172);
+      width: 300px;
+      height: 550px;
+      
+      box-shadow: 5px 5px 5px black;
+      border-radius: 10px 10px;
+      img{
+        width: 300px;
+        height: 400px;
+        
+        object-fit: cover;
+        border-radius: 10px 10px;
+    
+      }
+    }
+
+  }
+  
+</style>

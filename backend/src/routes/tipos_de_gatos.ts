@@ -15,9 +15,9 @@ const router = express.Router()
 router.get('/', obtenerTiposdeGatos)
 
 
-router.post('/',upload.single("imagen"), insertarGatos);
+router.post('/', upload.single("imagen"), insertarGatos);
 
-router.patch('/:id', actualizarGato);
+router.patch('/:id', upload.single("imagen"), actualizarGato);
 
 router.get("/:id", obtenerGatoPorId);
 
