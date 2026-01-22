@@ -9,6 +9,7 @@ import cors from 'cors';
  
 import { test } from './dbtest'
 
+import usuarioRouter from './routes/usuarios'
 
 
 const app = express()
@@ -28,6 +29,8 @@ app.get('/ping', (_req,res)=>{
     res.send('pong')
 })
 app.use('/api/tipos_de_gatos', gatoRouter)
+
+app.use('/usuarios', usuarioRouter)
 
 app.listen(PORT,()=>{ 
     console.log(`El servidor se inicia en http://${IP}:${PORT}`)
