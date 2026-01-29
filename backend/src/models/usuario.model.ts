@@ -7,7 +7,7 @@ interface CreateUserParams{
     password: string
 }
 
-const create = async ({ email, password, username }: CreateUserParams) => {
+const createUser = async ({ email, password, username }: CreateUserParams) => {
     const query = {
         text: `INSERT INTO usuarios_de_gatos (username, email, password)
         VALUES ($1, $2, $3)
@@ -19,7 +19,7 @@ const create = async ({ email, password, username }: CreateUserParams) => {
     return rows[0]
 }
 
-const findOneByEmail = async(email: string) => {
+const findOneByEmail = async(email: CreateUserParams) => {
     const query = {
         text: `SELECT * FROM usuarios_de_gatos
         WHERE EMAIL = $1
@@ -31,6 +31,6 @@ const findOneByEmail = async(email: string) => {
 }
 
 export const usuariosModel = {
-    create, 
+    createUser, 
     findOneByEmail
 }

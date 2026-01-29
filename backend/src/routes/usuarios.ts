@@ -1,6 +1,6 @@
 import express from 'express'
 
-import {UserModel} from '../models/usuario.model'
+
 
 import {
     // obtenerUsuarios, 
@@ -24,7 +24,7 @@ const router = express.Router()
 
 // router.delete('/:id', eliminarUsuario)
 
- router.post('/Registrarse', loginUsuarioID)
- router.post('/Login', nuevoUsuario)
+ router.post('/registrarse', nuevoUsuario)
+ router.post('/login',loginUsuarioID )
 
 export default router
