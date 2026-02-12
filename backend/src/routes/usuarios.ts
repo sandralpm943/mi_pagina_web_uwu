@@ -9,8 +9,10 @@ import {
     // actualizarUsuario, 
     // eliminarUsuario,
     loginUsuarioID, 
-    nuevoUsuario
+    nuevoUsuario,
+    perfil
 } from '../controllers/usuariocontrollers'
+import { verifyToken } from '../milddlewares/jwtmidleware'
 
 const router = express.Router()
 
@@ -25,6 +27,6 @@ const router = express.Router()
 // router.delete('/:id', eliminarUsuario)
 
  router.post('/registrarse', nuevoUsuario)
- router.post('/login',loginUsuarioID )
-
+ router.post('/login', loginUsuarioID )
+ router.get('/perfil', verifyToken, perfil )
 export default router

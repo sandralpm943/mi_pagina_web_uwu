@@ -11,6 +11,7 @@ import { test } from './dbtest'
 
 import usuarioRouter from './routes/usuarios'
 
+import cookieParser from 'cookie-parser'
 
 const app = express()
 
@@ -23,6 +24,7 @@ console.log(test)
 
 app.use(express.json()) //Midleware que transforma el req.body a un JSON.
 
+app.use(cookieParser())
 
 app.get('/ping', (_req,res)=>{
     console.log('Un putito hizo ping')

@@ -17,6 +17,11 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Gatos/webgatos.vue'),
     },
+    {
+      path: 'perfil/perfil',
+      name: 'perfil',
+      component: () => import ('../views/perfil/perfil.vue'),
+    },
   ],
 })
 

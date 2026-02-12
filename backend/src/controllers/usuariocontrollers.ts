@@ -7,6 +7,8 @@ import jwt from 'jsonwebtoken';
 
 
 
+
+
 // export const obtenerUsuarios = async(_req:Request, res:Response) => {
 //     res.send("Obtendremos usuario")
 // };
@@ -106,14 +108,22 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
 
         if(!isMatch) {
             res.status(401).json({error: "Credenciales incorrectas."})
+            return
         }
+        
 
         const token = jwt.sign(
             { email: useremail.email },
             SECRET_JWT,
             { expiresIn: '1h' }
         );
-        res.status(201).json({ok: true, msg:token})
+        res
+        .cookie('access-token', token, {
+            httpOnly: true,
+            sameSite: true,
+            maxAge: 1000 * 60 * 60
+        })
+        .status(201).json({ok: true, msg:token})
 
     } catch (error) {
         console.log(error)
@@ -124,4 +134,23 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
         return
     }
 };
+ export const perfil = async (req: Request &{email?:string} , res: Response) => {
+    try{
+        if(!req.email){
+            res.status(401).json({ error: "Usuario no autenticado"})
+            return 
+        }
+        const useremail = await usuariosModel.findOneByEmail(req.email)
+        res.json({ ok: true, msg: useremail })
+        return
+    }
+    catch (error){
+        console.log(error)
+        res.status(500).json({
+            ok:false,
+            msg:'Error en el servidor'
+        })
+        return
+    }
+ };
 
