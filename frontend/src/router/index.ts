@@ -18,9 +18,9 @@ const router = createRouter({
       component: () => import('../views/Gatos/webgatos.vue'),
     },
     {
-      path: 'perfil/perfil',
+      path: '/perfil',
       name: 'perfil',
-      component: () => import ('../views/perfil/perfil.vue'),
+      component: () => import ('../views/perfil/Perfil.vue'),
     },
   ],
 })
