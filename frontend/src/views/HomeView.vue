@@ -23,6 +23,7 @@
           );
           data = login.data;
           console.log('Enviado correctamente:', login.data);
+          window.location.href = "/perfil"
         }catch(error) {
           console.error('Error al iniciar ', error)
         }

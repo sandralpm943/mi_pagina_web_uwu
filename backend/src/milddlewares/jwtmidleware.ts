@@ -4,19 +4,13 @@ import {SECRET_JWT} from '../config'
 import {TokenPayload} from '../models/usuario.model'
 
 export const verifyToken = (req:Request &{email?: string} , res:Response, next: NextFunction) => {
-    let authHeader = req.headers.authorization
+    let token = req.cookies["access-token"]
 
-    if(!authHeader) {
+    if(!token) {
         res.status(401).json({error: "El token no se ha obtenido"})
         return
     }
-    const token = authHeader.split("")[1]
-
-    if(!token){
-        res.status(401).json({error: "Token no ha usuado split"})
-        return
-    }
-
+    
     try{
        const decoded = jwt.verify(token,SECRET_JWT ) as TokenPayload
        req.email = decoded.email

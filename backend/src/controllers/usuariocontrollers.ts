@@ -140,8 +140,8 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
             res.status(401).json({ error: "Usuario no autenticado"})
             return 
         }
-        const useremail = await usuariosModel.findOneByEmail(req.email)
-        res.json({ ok: true, msg: useremail })
+        
+        res.json({ ok: true, email: req.email })
         return
     }
     catch (error){
