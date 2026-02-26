@@ -9,6 +9,7 @@ import jwt from 'jsonwebtoken';
 
 
 
+
 // export const obtenerUsuarios = async(_req:Request, res:Response) => {
 //     res.send("Obtendremos usuario")
 // };
@@ -32,14 +33,18 @@ import jwt from 'jsonwebtoken';
 export const nuevoUsuario = async(req:Request, res:Response) => {
     try{
         const {username, email, password} = req.body 
+        //Validaciones
 
-        if(!username || !email || !password) {
-            res.status(400).json({
-                ok:false,
-                msg:'faltan datos'
-            })
-            return
-        }
+        //Validacion -- Si no existe salta el error.
+        
+
+        //Validacion -- Si es usuario, si es email o si es password.
+        
+
+        //Validacion -- No html, no espacios, limites de letras,numeros y caracteres...
+
+
+        //Conexion a base de datos
         const useremail = await usuariosModel.findOneByEmail(email)
         if(useremail){
              res.status(409).json({
@@ -140,8 +145,19 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
             res.status(401).json({ error: "Usuario no autenticado"})
             return 
         }
-        
-        res.json({ ok: true, email: req.email })
+
+        const useremail = await usuariosModel.findOneByEmail(req.email)
+        if(!useremail){
+            res.status(404).json({ error: "Usuario no encontrado"})
+            return
+        }
+        res.json({ 
+            ok: true,
+            gato: {
+                id: useremail?.id,
+                email: useremail?.email,
+                username: useremail?.username
+            } })
         return
     }
     catch (error){
@@ -153,4 +169,14 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
         return
     }
  };
+
+ export const logout = async(_req:Request, res:Response) =>{
+    res.clearCookie("access-token",{
+        httpOnly:true,
+        sameSite:true
+    }).json({
+        ok:true,
+        msg: "Sesion cerrada"
+    })
+ }
 
