@@ -3,5 +3,24 @@ CREATE TABLE usuarios_de_gatos(
     username VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_rol INTEGER,
+    CONSTRAINT fk_rol 
+    FOREIGN KEY (id_rol)
+    REFERENCES roles(id_rol)
+    ON DELETE CASCADE
 );
+
+CREATE TABLE roles_gatos(
+    id_rol INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    rol_gatos VARCHAR(100) NOT NULL
+);
+
+ALTER TABLE usuarios_de_gatos ADD COLUMN id_rol INTEGER;
+
+ALTER TABLE usuarios_de_gatos 
+ADD CONSTRAINT fk_rol 
+FOREIGN KEY (id_rol)
+REFERENCES roles_gatos(id_rol)
+ON DELETE CASCADE;
+

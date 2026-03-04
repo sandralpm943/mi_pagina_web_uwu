@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import { usuariosModel } from "../models/usuario.model";
 import {SECRET_JWT } from '../config';
 import jwt from 'jsonwebtoken';
+import { rolesModel } from "../models/roles.model";
+
 
 
 
@@ -63,11 +65,19 @@ export const nuevoUsuario = async(req:Request, res:Response) => {
        
 
         //Nuevo usuario
+        const rolPrincipal= 1;
+
+
         const newuser = await usuariosModel.createUser({username,
              email,
-             password:hashedPassword  
+             password:hashedPassword,
+             id_rol: rolPrincipal
             });
-        
+        const rolExist = await rolesModel.findById(rolPrincipal);
+        if (!rolExist) {
+            res.status(400).json({ok:false, msg: 'Rol no valido'})
+            return
+        }
          
         const token = jwt.sign(
             { email: newuser.email },
@@ -179,4 +189,21 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
         msg: "Sesion cerrada"
     })
  }
+ interface AuthUser{
+    id: number
+    id_rol: number
+ }
 
+ interface AuthUser extends Request {
+    user?:AuthUser
+ }
+
+ export const soloAdmin = (req:Request &AuthUser, res: Response) => {
+    if (req.user) {
+        return res.status(403).json({ msg: "No autorizado" })
+    }
+    if(req.user.id_rol !== 2) {
+        return res.status(403).json ({msg: "No autorizado"})
+    }
+    res.json({ secretData: "Panel Admin"})
+ }
