@@ -186,27 +186,27 @@ const gatosFiltrados = computed(() => {
         ? 'Creando un nuevo servidor' 
         : `Editando: ${razaInput}` }}
 </h1>
-      <label for="">raza</label>
+      <label for="raza">raza</label>
       <input type="text" v-model="razaInput" placeholder="raza">
       <br>
 
-      <label for="">personalidad</label>
+      <label for="personalidad">personalidad</label>
       <input type="text" v-model="personalidadInput" placeholder="personalidad">
       <br>
 
-      <label for="">descripcion</label>
+      <label for="descripcion">descripcion</label>
       <input type="text" v-model="descripcionInput" placeholder="descripcion ">
       <br>
 
-      <label for="">procedencia</label>
+      <label for="procedencia">procedencia</label>
       <input type="text" v-model="procedenciaInput" placeholder="procedencia">
       <br>
 
-      <label for="">datos_curiosos</label>
+      <label for="datos_curiosos">datos_curiosos</label>
       <input type="text" v-model="datos_curiososInput" placeholder="datos_curiosos">
       <br>
 
-      <label for="">imagen</label>
+      <label for="imagen">imagen</label>
       <input type="file" @change="onFileChange" placeholder="imagen">
 
       <button type="submit">

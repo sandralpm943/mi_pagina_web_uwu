@@ -194,16 +194,18 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
     id_rol: number
  }
 
- interface AuthUser extends Request {
+ interface AuthRequest extends Request {
     user?:AuthUser
  }
 
- export const soloAdmin = (req:Request &AuthUser, res: Response) => {
-    if (req.user) {
-        return res.status(403).json({ msg: "No autorizado" })
+ export const soloAdmin = (req: AuthRequest, res: Response) => {
+    if (!req.user) {
+         res.status(403).json({ msg: "No autorizado" })
+         return
     }
     if(req.user.id_rol !== 2) {
-        return res.status(403).json ({msg: "No autorizado"})
+         res.status(403).json ({msg: "No autorizado"})
+         return
     }
     res.json({ secretData: "Panel Admin"})
  }
