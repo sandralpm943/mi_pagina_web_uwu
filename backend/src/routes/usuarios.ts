@@ -11,7 +11,9 @@ import {
     loginUsuarioID, 
     logout, 
     nuevoUsuario,
-    perfil
+    perfil,
+    soloAdmin
+
 } from '../controllers/usuariocontrollers'
 
 import { validatorRegistro } from '../validators/usuarios.validators'
@@ -36,4 +38,5 @@ const router = express.Router()
  router.post('/login', loginUsuarioID )
  router.get('/perfil', verifyToken, perfil )
   router.post('/logout', logout)
+router.get('/admin/data', verifyToken, soloAdmin)
 export default router

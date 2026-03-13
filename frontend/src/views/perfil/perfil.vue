@@ -17,7 +17,7 @@
             console.log(data.gato);
         } catch(error) {
             console.error("No se pudo obtener el perfil", error);
-            router.push('/')
+            //router.push('/')
         }
     }
     const token = "token";

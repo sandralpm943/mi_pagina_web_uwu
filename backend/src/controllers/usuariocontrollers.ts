@@ -12,6 +12,7 @@ import { rolesModel } from "../models/roles.model";
 
 
 
+
 // export const obtenerUsuarios = async(_req:Request, res:Response) => {
 //     res.send("Obtendremos usuario")
 // };
@@ -80,7 +81,7 @@ export const nuevoUsuario = async(req:Request, res:Response) => {
         }
          
         const token = jwt.sign(
-            { email: newuser.email },
+            { email: newuser.email, id_rol: rolExist },
             SECRET_JWT,
             { expiresIn: '1h' }
         );
@@ -111,6 +112,7 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
             return
         }
         const useremail = await usuariosModel.findOneByEmail(email)
+        
         if(!useremail){
              res.status(409).json({
                 ok:false,
@@ -128,7 +130,7 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
         
 
         const token = jwt.sign(
-            { email: useremail.email },
+            { email: useremail.email, idrol: useremail.id_rol },
             SECRET_JWT,
             { expiresIn: '1h' }
         );
@@ -198,12 +200,15 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
     user?:AuthUser
  }
 
- export const soloAdmin = (req: AuthRequest, res: Response) => {
-    if (!req.user) {
-         res.status(403).json({ msg: "No autorizado" })
+ export const soloAdmin = (req: AuthRequest &{idrol?:number} , res: Response) => {
+   // console.log(req.email)
+    if (!req.idrol) {
+         res.status(401).json({ msg: "No has autenticado" })
          return
     }
-    if(req.user.id_rol !== 2) {
+
+    
+    if(req.idrol !== 2) {
          res.status(403).json ({msg: "No autorizado"})
          return
     }

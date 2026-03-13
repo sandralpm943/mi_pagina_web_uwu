@@ -4,6 +4,7 @@
             <ul>
                 <li><RouterLink to="/">Inicio</RouterLink></li>
                 <li><RouterLink to="/Gatos/webgatos">Tipos de gatitos</RouterLink></li>
+                <li><RouterLink to="/admin">Panel control</RouterLink></li>
                 <li><RouterLink to="/perfil">Perfil</RouterLink></li>
             </ul>    
         </nav>

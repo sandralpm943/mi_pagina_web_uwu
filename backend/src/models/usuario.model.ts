@@ -6,6 +6,7 @@ export interface User {
     username: string
     email: string
     password: string
+    id_rol: number
 }
 
 export interface CreateUserParams{
@@ -16,6 +17,7 @@ export interface CreateUserParams{
 }
 export interface TokenPayload {
   email: string
+  idrol: number
 }
 const createUser = async ({ email, password, username, id_rol }: CreateUserParams): Promise<User> => {
     const query = {
