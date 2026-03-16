@@ -20,7 +20,7 @@ const router = createRouter({
     {
       path: '/perfil',
       name: 'perfil',
-      component: () => import ('../views/perfil/Perfil.vue'),
+      component: () => import ('../views/perfil/perfil.vue'),
     },
         {
       path: '/admin',

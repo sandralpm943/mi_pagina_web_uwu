@@ -13,6 +13,8 @@ import usuarioRouter from './routes/usuarios'
 
 import cookieParser from 'cookie-parser'
 
+import adminRoutes from './routes/admin.routes'
+
 const app = express()
 
 app.use('/uploads', express.static('uploads'));
@@ -36,6 +38,8 @@ app.get('/ping', (_req,res)=>{
 app.use('/api/tipos_de_gatos', gatoRouter)
 
 app.use('/usuarios', usuarioRouter)
+
+app.use("/admin", adminRoutes)
 
 app.listen(PORT,()=>{ 
     console.log(`El servidor se inicia en http://${IP}:${PORT}`)

@@ -212,5 +212,5 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
          res.status(403).json ({msg: "No autorizado"})
          return
     }
-    res.json({ secretData: "Panel Admin"})
+    res.json({ secretData: "¡Bienvenido!"})
  }

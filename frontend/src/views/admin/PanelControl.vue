@@ -36,7 +36,7 @@
 <template>
     <main>
         <h1>Panel Administrador</h1>
-        <p>{{ adminData }}</p>
+        <p>{{ admin }}</p>
 
     </main>
 </template>
