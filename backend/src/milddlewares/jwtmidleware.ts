@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import {SECRET_JWT} from '../config'
 import {TokenPayload} from '../models/usuario.model'
 
-export const verifyToken = (req: Request &{email: string, idrol: number}, res:Response, next: NextFunction) => {
+export const verifyToken = (req: Request &{email?: string, idrol?: number} , res:Response, next: NextFunction) => {
     let token = req.cookies["access-token"]
 
     if(!token) {

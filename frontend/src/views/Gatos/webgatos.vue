@@ -13,16 +13,7 @@
   const imagenFile = ref<File | null>(null)
   const imagenPreview = ref<string | null>(null)
 
-  const tipos_de_gatos = ref<{
-    id: number,
-    raza: string,
-    personalidad: string,
-    descripcion: string,
-    procedencia: string,
-    datos_curiosos: string,
-    imagen: string,
-    create_at: string
-  }[]>([])
+
   
   const idSeleccionado = ref<number | null> (null);
   const modoFormulario = ref<'crear' | 'editar'>('crear');

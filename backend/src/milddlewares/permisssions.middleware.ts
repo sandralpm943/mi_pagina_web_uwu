@@ -1,13 +1,18 @@
 import {Request,Response, NextFunction } from 'express';
+import permissionsModel from '../models/permissions.model';
+
+interface AuthRequest extends Request{
+    email?: string
+}
 
 export const authorizePermission = (permission: string)=>{
-    async (req: Request, res: Response, next: NextFunction)=> {
+    return async (req: AuthRequest, res: Response, next: NextFunction)=> {
         if(!req.email){
             res.status(401).json({ msg: "No autenticado" })
             return
         }
         try{
-            const permisos = await permisosModel.getUserPermissions(req.email)
+            const permisos = await permissionsModel.getUserPermissions(req.email)
 
             if(!permisos.includes(permission)) {
                 res.status(403).json({ msg: "No autorizado" })
@@ -21,6 +26,6 @@ export const authorizePermission = (permission: string)=>{
             res.status(500).json({ msg: "Error verificando permisos" })
 
         }
-        return
+        
     }
 }
