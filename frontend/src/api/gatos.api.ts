@@ -1,23 +1,24 @@
 import axios from 'axios'
-import { tipos_de_gatos } from '@/types/gatos.types'
+import type { tiposDeGatos } from '@/types/gatos.types'
 
 const API = "http://localhost:3000/api/tipos_de_gatos"
 
-export const obtenerGato = async (): Promise<tipos_de_gatos[]> => {
+export const obtenerGato = async (): Promise<tiposDeGatos[]> => {
     const res = await axios.get(API)
     return res.data
 }
 
-export const crearGato = async (fromData: fromData): Promise<tipos_de_gatos[]> => {
-    const res = await axios.post(API, fromData)
+export const crearGato = async (FormData: FormData): Promise<tiposDeGatos> => {
+    const res = await axios.post(API, FormData)
     return res.data
 }
 
-export const editarGato = async (id: number , fromData: fromData): Promise<tipos_de_gatos[]> => {
-    const res = await axios.patch( `${API}/${id}`, fromData)
+export const editarGato = async (id: number , FormData: FormData): Promise<tiposDeGatos> => {
+    const res = await axios.patch( `${API}/${id}`, FormData)
     return res.data
 }
 
 export const eliminarGato = async (id: number) => {
-    const res = await axios.patch( `${API}/${id}`)
+    const res = await axios.delete( `${API}/${id}`)
 }
+

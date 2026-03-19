@@ -1,4 +1,4 @@
-export interface tipos_de_gatos {
+export interface tiposDeGatos {
     id: number,
     raza: string,
     personalidad: string,
