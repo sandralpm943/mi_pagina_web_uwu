@@ -8,22 +8,34 @@ import {
 } from '@/api/gatos.api'
 
 import { computed } from 'vue'
+const razaInput = ref<string>('')
+const personalidadInput = ref<string>('')
+const descripcionInput = ref<string>('')
+const procedenciaInput = ref<string>('')
+const datos_curiososInput = ref<string>('')
+
+const imagenFile = ref<File | null>(null)
+const imagenPreview = ref<string | null>(null)
+
+const idSeleccionado = ref<number | null> (null);
+const modoFormulario = ref<'crear' | 'editar'>('crear');
+const busqueda = ref<string>('')
 export function useGatos() {
 
-    const razaInput = ref<string>('')
-    const personalidadInput = ref<string>('')
-    const descripcionInput = ref<string>('')
-    const procedenciaInput = ref<string>('')
-    const datos_curiososInput = ref<string>('')
+    // const razaInput = ref<string>('')
+    // const personalidadInput = ref<string>('')
+    // const descripcionInput = ref<string>('')
+    // const procedenciaInput = ref<string>('')
+    // const datos_curiososInput = ref<string>('')
 
-    const imagenFile = ref<File | null>(null)
-    const imagenPreview = ref<string | null>(null)
+    // const imagenFile = ref<File | null>(null)
+    // const imagenPreview = ref<string | null>(null)
 
     const gatos = ref<tiposDeGatos[]>([])
 
-    const idSeleccionado = ref<number | null> (null);
-    const modoFormulario = ref<'crear' | 'editar'>('crear');
-    const busqueda = ref<string>('')
+    // const idSeleccionado = ref<number | null> (null);
+    // const modoFormulario = ref<'crear' | 'editar'>('crear');
+   // const busqueda = ref<string>('')
     const onFileChange = (event: Event) => {
         const input = event.target as HTMLInputElement
 
@@ -109,27 +121,21 @@ export function useGatos() {
         
     }
 
-    const editarFGato = async(gato: tiposDeGatos) => {
-        try{
+    const editarFGato = (gato: tiposDeGatos) => {
+        try{ 
+            // Llenar inputs
+            razaInput.value = gato.raza;
+            personalidadInput.value = gato.personalidad;
+            descripcionInput.value = gato.descripcion;
+            procedenciaInput.value = gato.procedencia;
+            datos_curiososInput.value = gato.datos_curiosos;
+            imagenPreview.value = `http://localhost:3000${gato.imagen}`;
+            imagenFile.value = null; // Solo si quiere reemplazar
 
-            const formData = new FormData()
-
-            formData.append('raza', razaInput.value);
-            formData.append('personalidad', personalidadInput.value);
-            formData.append('descripcion', descripcionInput.value);
-            formData.append('procedencia', procedenciaInput.value);
-            formData.append('datos_curiosos', datos_curiososInput.value);
-
-            if(!idSeleccionado.value) {
-                console.error("No hay ID selecionada :(")
-                return
-            }
-            const edicionGatos = await editarGato (idSeleccionado.value, formData)
-
-            const index = gatos.value.findIndex(s => s.id === idSeleccionado.value)
-            if(index !== -1) {
-                gatos.value.splice(index, 1, edicionGatos)
-            }
+            // Cambiar modo a editar
+            idSeleccionado.value = gato.id;
+            modoFormulario.value = 'editar';
+  
         }catch(error){
             console.error('Error al obtener datos', error)
         }

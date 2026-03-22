@@ -2,6 +2,9 @@
     import {ref, onMounted } from 'vue';
     import axios from 'axios';
     import { useRouter } from 'vue-router';
+    import GatosApicreate from '@/components/Gatos.server/Gatos.api.Edit.Create.vue';
+    import GatosApicontenido from '@/components/Gatos.server/Gatos.API.Contenido.vue';
+    import GatosApiArticulos from '@/components/Gatos.server/Gatos.API.Articulos.vue';
     const router = useRouter()
 
     const user = ref<{ id: string;  email: string; username: string; } | null>(null); 
@@ -48,5 +51,9 @@
         <p>Email: {{ user?.email || "Cargando..."}}</p>
 
         <button @click="logout">Cerrar sesion</button>
+
+        <GatosApicreate></GatosApicreate>
+        <GatosApicontenido></GatosApicontenido>
+        <GatosApiArticulos></GatosApiArticulos>
     </div>
 </template>
