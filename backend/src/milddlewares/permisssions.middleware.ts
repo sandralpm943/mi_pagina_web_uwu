@@ -13,7 +13,6 @@ export const authorizePermission = (permission: string)=>{
         }
         try{
             const permisos = await permissionsModel.getUserPermissions(req.email)
-
             if(!permisos.includes(permission)) {
                 res.status(403).json({ msg: "No autorizado" })
                 return

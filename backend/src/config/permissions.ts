@@ -1,6 +1,6 @@
 export const PERMISSION = {
-    GATOS_VER: "gato.ver",
-    GATOS_CREAR: "gato.crear",
-    GATOS_EDITAR: "gato.editar",
-    GATOS_ELIMINAR: "gato.eliminar"
+    GATOS_VER: "gatos.ver",
+    GATOS_CREAR: "gatos.crear",
+    GATOS_EDITAR: "gatos.editar",
+    GATOS_ELIMINAR: "gatos.eliminar"
 }

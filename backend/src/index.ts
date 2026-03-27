@@ -15,6 +15,8 @@ import cookieParser from 'cookie-parser'
 
 import adminRoutes from './routes/admin.routes'
 
+import {emailTest} from './milddlewares/mailer.middleware'
+
 const app = express()
 
 app.use('/uploads', express.static('uploads'));
@@ -40,6 +42,8 @@ app.use('/api/tipos_de_gatos', gatoRouter)
 app.use('/usuarios', usuarioRouter)
 
 app.use("/admin", adminRoutes)
+
+app.get("/emailTest", emailTest)
 
 app.listen(PORT,()=>{ 
     console.log(`El servidor se inicia en http://${IP}:${PORT}`)
