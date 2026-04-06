@@ -1,29 +1,19 @@
 
 <script setup lang="ts">
     import {ref, onMounted } from 'vue';
-    import axios from 'axios';
-    import { useRouter } from 'vue-router';
+import { useAuth } from '@/composables/useAuth.composable';
+import usuariosAPI from '@/components/controlPanel/usuarios.API.vue';
 
-    const router = useRouter()
-    const admin = ref("");
 
-    const adminData = async () => {
-        try {
-            const { data } = await axios.get('http://localhost:3000/usuarios/admin/data', {withCredentials: true})
-            admin.value = data.secretData 
-        }catch (error:any){
-            
-            if(error.response?.status === 401) {
-                router.push("/")
-            }
-            if(error.response?.status === 403) {
-                router.push("/perfil")
-            }
-            
-            
-        }   
-    }
+    
+    
 
+    const {
+        adminData
+    } = useAuth()
+
+
+import {admin} from '@/api/auth.api'
     onMounted(() => {
         adminData()
     })
@@ -37,6 +27,6 @@
     <main>
         <h1>Panel Administrador</h1>
         <p>{{ admin }}</p>
-
+        <usuariosAPI></usuariosAPI>
     </main>
 </template>

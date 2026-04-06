@@ -1,39 +1,15 @@
 <script setup lang="ts">
     import {ref, onMounted } from 'vue';
-    import axios from 'axios';
-    import { useRouter } from 'vue-router';
     import GatosApicreate from '@/components/Gatos.server/Gatos.api.Edit.Create.vue';
     import GatosApicontenido from '@/components/Gatos.server/Gatos.API.Contenido.vue';
     import GatosApiArticulos from '@/components/Gatos.server/Gatos.API.Articulos.vue';
-    const router = useRouter()
+import { useAuth } from '@/composables/useAuth.composable';
 
-    const user = ref<{ id: string;  email: string; username: string; } | null>(null); 
-
-    const obtenerPerfil = async () => {
-        try {
-            const {data} = await axios.get('http://localhost:3000/usuarios/perfil', {withCredentials: true})
-            user.value = {
-                id: "", 
-                username: data.gato.username,
-                email: data.gato.email
-            };
-            console.log(data.gato);
-        } catch(error) {
-            console.error("No se pudo obtener el perfil", error);
-            //router.push('/')
-        }
-    }
-    const token = "token";
-
-    const logout = async () => {
-        try{
-             const logout = await axios.post('http://localhost:3000/usuarios/logout',{}, {withCredentials: true})
-            router.push('/')
-        }catch(error){
-            console.error("error de cerrar sesion", error)
-        }
-    }
-
+const {
+    obtenerPerfil,
+    logout
+} = useAuth()
+import {user} from '@/api/auth.api'
     onMounted(() => {
         obtenerPerfil();
     })

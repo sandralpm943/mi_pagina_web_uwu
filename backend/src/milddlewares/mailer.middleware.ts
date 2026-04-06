@@ -2,6 +2,8 @@
 import { Request, Response, NextFunction} from "express";
 import nodemailer from "nodemailer"
 
+import { EMAIL_MAILER, MAILER_CODE } from '../config'
+
 
 export const emailTest = async (_req:Request, res: Response, next: NextFunction)=>{
     try{
@@ -10,12 +12,12 @@ export const emailTest = async (_req:Request, res: Response, next: NextFunction)
             port: 465,
             secure: true, // use STARTTLS (upgrade connection to TLS after connecting)
             auth: {
-                user: "sandralpm943@gmail.com",
-                pass: "qmiigwpkxemfvsnm",
+                user: EMAIL_MAILER,
+                pass: MAILER_CODE,
             },
         });
         const info  =  ({
-            from: '', // sender address
+            from: EMAIL_MAILER, // sender address
             to: "sandralopez.ife@gmail.com", // list of recipients
             subject: "Hello miauuu", // subject line
             text: "Hello world? Gatitos web haciendo pruebas", // plain text body

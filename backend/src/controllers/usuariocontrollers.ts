@@ -4,6 +4,8 @@ import { usuariosModel } from "../models/usuario.model";
 import {SECRET_JWT } from '../config';
 import jwt from 'jsonwebtoken';
 import { rolesModel } from "../models/roles.model";
+import { emailValidator } from "../services/email.services";
+import crypto from "crypto";
 
 
 
@@ -36,16 +38,6 @@ import { rolesModel } from "../models/roles.model";
 export const nuevoUsuario = async(req:Request, res:Response) => {
     try{
         const {username, email, password} = req.body 
-        //Validaciones
-
-        //Validacion -- Si no existe salta el error.
-        
-
-        //Validacion -- Si es usuario, si es email o si es password.
-        
-
-        //Validacion -- No html, no espacios, limites de letras,numeros y caracteres...
-
 
         //Conexion a base de datos
         const useremail = await usuariosModel.findOneByEmail(email)
@@ -60,7 +52,11 @@ export const nuevoUsuario = async(req:Request, res:Response) => {
         //hashear contraseña
         const salt = await bcryptjs.genSalt(10)
         const hashedPassword = await bcryptjs.hash(password, salt)
-        
+        //Crea token provisional para validar email
+        const verified_token  = crypto
+        .randomBytes(32)
+        .toString("hex");
+        console.log(`Token mailer: ${verified_token }`)
 
         
        
@@ -69,27 +65,40 @@ export const nuevoUsuario = async(req:Request, res:Response) => {
         const rolPrincipal= 1;
 
 
-        const newuser = await usuariosModel.createUser({username,
-             email,
-             password:hashedPassword,
-             id_rol: rolPrincipal
+        const newuser = await usuariosModel.createUser({
+            username,
+            email,
+            password:hashedPassword,
+            id_rol: rolPrincipal,
+            verified_token : verified_token,
+            verified: false
+
             });
+            //Envia un correo de verificación al email con su token provisional
+            await emailValidator(
+                email,
+                verified_token 
+            )
+                
+         //Valida si el rol se puede usar o no   
         const rolExist = await rolesModel.findById(rolPrincipal);
         if (!rolExist) {
             res.status(400).json({ok:false, msg: 'Rol no valido'})
             return
         }
-         
+         //Este token hay que averiguar, en teoria inicial igual?
         const token = jwt.sign(
             { email: newuser.email, id_rol: rolExist },
             SECRET_JWT,
             { expiresIn: '1h' }
         );
-
+        //Cuando nos registramos y todo esta correcto devuelve el token.
         res.status(201).json({ok: true, msg:token})
     
 
     } catch (error) {
+
+        //Error externo al servidor.
         console.log(error)
          res.status(500).json({
             ok: false,

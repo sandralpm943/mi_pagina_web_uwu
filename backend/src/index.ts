@@ -9,13 +9,18 @@ import cors from 'cors';
  
 import { test } from './dbtest'
 
-import usuarioRouter from './routes/usuarios'
+import authRoutes from './routes/auth.routes'
+import adminRoutes from './routes/admin.routes'
+import emailRoutes from './routes/mailer.routes'
+import usuariosRoutes from './routes/usuariosGatos.routes'
+
 
 import cookieParser from 'cookie-parser'
 
-import adminRoutes from './routes/admin.routes'
-
 import {emailTest} from './milddlewares/mailer.middleware'
+
+
+ 
 
 const app = express()
 
@@ -39,11 +44,15 @@ app.get('/ping', (_req,res)=>{
 })
 app.use('/api/tipos_de_gatos', gatoRouter)
 
-app.use('/usuarios', usuarioRouter)
+app.use('/auth', authRoutes)
+
+app.use('/usuarios',usuariosRoutes)
 
 app.use("/admin", adminRoutes)
 
 app.get("/emailTest", emailTest)
+
+app.use("/email",emailRoutes )
 
 app.listen(PORT,()=>{ 
     console.log(`El servidor se inicia en http://${IP}:${PORT}`)

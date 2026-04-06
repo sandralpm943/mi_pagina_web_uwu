@@ -11,9 +11,13 @@ export const DB_PORT = process.env.DB_PORT
     ? Number(process.env.DB_PORT)
     : undefined;
 export const DB_TABLE_TIPOSGATOS = process.env.DB_TABLE_TIPOSGATOS;
+export const DB_TABLE_USUARIOS_DE_GATOS = process.env.DB_TABLE_USUARIOS_DE_GATOS;
 
 if(!process.env.SECRET_JWT){
     throw new Error('SECRET_JWT no esta defenida')
 }
 
 export const SECRET_JWT = process.env.SECRET_JWT;
+
+export const EMAIL_MAILER= process.env.EMAIL_MAILER;
+export const MAILER_CODE= process.env.MAILER_CODE;

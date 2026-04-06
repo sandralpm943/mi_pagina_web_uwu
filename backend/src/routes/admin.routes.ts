@@ -12,6 +12,7 @@ router.use(verifyToken)
 
 router.use("/tipos_de_gatos" ,authorizePermission(PERMISSION.GATOS_VER), tipos_de_gatosRoutes)
 
+router.use("/usuarios_gatos" ,authorizePermission(PERMISSION.GATOS_VER), tipos_de_gatosRoutes)
 
 
 export default router

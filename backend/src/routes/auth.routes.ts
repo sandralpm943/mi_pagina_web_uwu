@@ -21,6 +21,7 @@ import { validatorRegistro } from '../validators/usuarios.validators'
 import { validarCampos } from '../milddlewares/validation.middleware'
 
 import { verifyToken } from '../milddlewares/jwtmidleware'
+import { obternerUsuarios } from '../controllers/usuariosgatosadmin.controllers'
 
 const router = express.Router()
 
@@ -39,4 +40,5 @@ const router = express.Router()
  router.get('/perfil', verifyToken, perfil )
   router.post('/logout', logout)
 router.get('/admin/data', verifyToken, soloAdmin)
+router.get ('/usuarios',obternerUsuarios)
 export default router

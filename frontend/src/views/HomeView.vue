@@ -2,74 +2,84 @@
 //import TheWelcome from '../components/TheWelcome.vue'
   import {ref,onMounted} from 'vue'
   import axios from 'axios'
-  const lemail = ref<string>('');
-  const lpassword = ref<string>('');
+import { useAuth } from '@/composables/useAuth.composable'
+const{
+  logearse,
+  registrarse,
+  errorLogin,
+  errorRegistro
 
-  const rusername = ref<string>('');
-  const remail = ref<string>('');
-  const rpassword = ref<string>('');
+} = useAuth()
+import { lemail,lpassword,remail,rpassword,rusername } from '@/api/auth.api';
+
+  // const lemail = ref<string>('');
+  // const lpassword = ref<string>('');
+
+  // const rusername = ref<string>('');
+  // const remail = ref<string>('');
+  // const rpassword = ref<string>('');
 
 
-  //errores:
+  // //errores:
 
-  const errorLogin = ref("")
-  const errorRegistro = ref("")
+  // const errorLogin = ref("")
+  // const errorRegistro = ref("")
 
-    let data;
-    const logearse = async() => {
-        try{
-          errorLogin.value = ""; //limpia errores anteriores
+  //   let data;
+  //   const logearse = async() => {
+  //       try{
+  //         errorLogin.value = ""; //limpia errores anteriores
 
-          const login = await axios.post('http://localhost:3000/usuarios/login', 
-            {
-              email: lemail.value,
-              password: lpassword.value
-            },
-            {
-              withCredentials:true
-            }
-          );
-          data = login.data;
-          console.log('Enviado correctamente:', login.data);
-          window.location.href = "/perfil"
-        }catch(error:any) {
-          console.error('Error al iniciar ', error)
-          errorLogin.value = error.response?.data?.msg || "Error inesperado al iniciar sesion";
-        }
+  //         const login = await axios.post('http://localhost:3000/auth/login', 
+  //           {
+  //             email: lemail.value,
+  //             password: lpassword.value
+  //           },
+  //           {
+  //             withCredentials:true
+  //           }
+  //         );
+  //         data = login.data;
+  //         console.log('Enviado correctamente:', login.data);
+  //         window.location.href = "/perfil"
+  //       }catch(error:any) {
+  //         console.error('Error al iniciar ', error)
+  //         errorLogin.value = error.response?.data?.msg || "Error inesperado al iniciar sesion";
+  //       }
         
-    }
+  //   }
 
-    // const Registro = async() =>{
-    //http://localhost:3000/usuarios/registrarse'
-    //}
+  //   // const Registro = async() =>{
+  //   //http://localhost:3000/usuarios/registrarse'
+  //   //}
         
-    const registrarse = async() => {
-        try{
+  //   const registrarse = async() => {
+  //       try{
 
-          errorRegistro.value = ""; //limpiar errores
-          const registro = await axios.post('http://localhost:3000/usuarios/registrarse', 
-            {
-              username: rusername.value,
-              email: remail.value,
-              password: rpassword.value
-            }
-          );
-          data = registro.data;
-          console.log('Enviado correctamente:', registro.data);
-        }catch(error: any) {
+  //         errorRegistro.value = ""; //limpiar errores
+  //         const registro = await axios.post('http://localhost:3000/auth/registrarse', 
+  //           {
+  //             username: rusername.value,
+  //             email: remail.value,
+  //             password: rpassword.value
+  //           }
+  //         );
+  //         data = registro.data;
+  //         console.log('Enviado correctamente:', registro.data);
+  //       }catch(error: any) {
 
-          console.error('Error al iniciar ', error)
-        if(error.response?.data?.errors) {
-          errorRegistro.value= error.response?.data?.errors 
-          .map((e:any)=> e.msg)
-          .join(", ");
-        }else{
-         errorRegistro.value = "Error inesperado al registrarse";
-        }
+  //         console.error('Error al iniciar ', error)
+  //       if(error.response?.data?.errors) {
+  //         errorRegistro.value= error.response?.data?.errors 
+  //         .map((e:any)=> e.msg)
+  //         .join(", ");
+  //       }else{
+  //        errorRegistro.value = "Error inesperado al registrarse";
+  //       }
           
-        }
+  //       }
         
-    }
+  //   }
 
 </script>
 
