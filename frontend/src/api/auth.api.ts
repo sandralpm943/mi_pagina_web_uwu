@@ -9,7 +9,7 @@ const routes = [
     "/registrarse",//1
     "/perfil",//2
     "/logout",//3
-    "/admin" //4
+    "/admin/data" //4
 ]
 
 export const admin = ref("");

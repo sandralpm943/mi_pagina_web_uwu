@@ -116,7 +116,7 @@ export function useGatos() {
       
             
         }catch(error){
-            console.error('Error al obtener datos', error)
+            console.error('Error al crear y obtener los datos', error)
         }
         
     }
@@ -137,7 +137,7 @@ export function useGatos() {
             modoFormulario.value = 'editar';
   
         }catch(error){
-            console.error('Error al obtener datos', error)
+            console.error('Error al editar y obtener datos', error)
         }
 
     }

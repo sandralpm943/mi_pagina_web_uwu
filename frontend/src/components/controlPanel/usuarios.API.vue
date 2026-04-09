@@ -3,7 +3,10 @@ import { onMounted } from 'vue';
 import {input_email, input_id_rol, input_Usuario, input_verified, useUsuarios} from '../../composables/Usuarios.composable'
 const {
     obtenerfUsuarios,
-    usuarios
+    usuarios,
+    eliminarFUsuario,
+    editarFUsuarios, 
+    enviarFUsuarios
 } = useUsuarios()
 onMounted(() =>{
     obtenerfUsuarios()
@@ -11,7 +14,7 @@ onMounted(() =>{
 </script>
 <template>
     <div>
-        <form action="">
+        <form @submit.prevent="enviarFUsuarios">
 
             <h1>Editar</h1>
 
@@ -26,6 +29,7 @@ onMounted(() =>{
 
             <label for="">verified</label>
             <input type="text" v-model="input_verified" placeholder="verified" >
+            <button type="submit">Enviar</button>
         </form>
         <h1>Lista usuarios</h1>
         <table>
@@ -47,6 +51,12 @@ onMounted(() =>{
                     <td>{{ usuario.create_at }}</td>
                     <td> {{ usuario.id_rol }}</td>
                     <td>{{ usuario.verified }}</td>
+                    <td>
+                        <button @click="eliminarFUsuario(usuario.id)">Eliminar</button>
+                    </td>
+                    <td>
+                        <button @click="editarFUsuarios(usuario)">Editar</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

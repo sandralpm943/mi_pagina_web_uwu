@@ -17,11 +17,11 @@ export const obternerUsuarios = async (_req:Request, res: Response) =>{
     return res.status(200).json(rows)
 }
 export const obternerUsuario = async (req:Request, res: Response) =>{
-     const { email} = req.params;
+     const { id} = req.params;
      try {
         const { rows } = await pool.query(
-            `SELECT ${userColumns} FROM ${DB_TABLE_USUARIOS_DE_GATOS} WHERE email = $1`,
-            [email]
+            `SELECT ${userColumns} FROM ${DB_TABLE_USUARIOS_DE_GATOS} WHERE id = $1`,
+            [id]
         );
 
         if (rows.length === 0) {
@@ -38,7 +38,7 @@ export const crearUsuario = async (_req:Request, res: Response) =>{
     return res.status(200).json({"msg":"creando usuario"})
 }
 export const actualizarUsuario = async (req:Request, res: Response) =>{
-    const { email } = req.params;
+    const { id } = req.params;
     const data = req.body;
     
     try {
@@ -49,16 +49,16 @@ export const actualizarUsuario = async (req:Request, res: Response) =>{
                 ${userColumns[2]} = COALESCE($2, ${userColumns[2]}),
                 ${userColumns[4]} = COALESCE($3, ${userColumns[4]}),
                 ${userColumns[5]} = COALESCE($4,${userColumns[5]})
-            WHERE email = $5
+            WHERE id = $5
             RETURNING *
             
             `,
             [
             data.username,
-            data.create_at,
+            data.email,
             data.id_rol,
             data.verified,
-            email
+            id
 
             ]
         )
@@ -74,21 +74,21 @@ export const actualizarUsuario = async (req:Request, res: Response) =>{
     return res.status(200).json({"msg":"actualizando usuario"})
 };
 export const eliminarUsuario = async (req:Request, res: Response) =>{
-    const { email } = req.params;
+    const { id } = req.params;
     try{
           // 1️⃣ Obtener el servidor antes de borrar
             const result = await pool.query(
-              `SELECT * FROM ${DB_TABLE_USUARIOS_DE_GATOS} WHERE email = $1`,
-              [email]
+              `SELECT * FROM ${DB_TABLE_USUARIOS_DE_GATOS} WHERE id = $1`,
+              [id]
             );
             if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
      await pool.query(
           `DELETE FROM ${DB_TABLE_USUARIOS_DE_GATOS}
-           WHERE email = $1
+           WHERE id = $1
            RETURNING *`,
-          [email]
+          [id]
         );
 
          return res.status(200).json({"msg":"eliminando usuario"})
