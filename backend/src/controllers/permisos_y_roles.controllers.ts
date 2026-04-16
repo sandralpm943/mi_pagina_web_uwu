@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 // import { DB_ROLE_GATOS } from "../config";
 
 
-export const obternerPermisosyroles = async (_req:Request, res: Response) => {
+export const obternerPermissionRole = async (_req:Request, res: Response) => {
     try{
         const {rows} = await pool.query(`
             SELECT 
@@ -32,7 +32,7 @@ export const obternerPermisosyroles = async (_req:Request, res: Response) => {
         })
     }
 }
-export const crearPermisosyroles = async  (req:Request, res: Response) =>{
+export const crearPermissionRole = async  (req:Request, res: Response) =>{
     const { id_rol, id_permission } = req.body;
 
     try{
@@ -52,6 +52,26 @@ export const crearPermisosyroles = async  (req:Request, res: Response) =>{
         return res.status(500).json({ error: "Error al crear los rol/ permiso" });
     }
 }
-// export const obternerPermisoyroles = async (req:Request, res: Response) =>{
-   
-// }
+export const eliminarPermissionRole = async (req:Request, res: Response) =>{
+    const {idRol, idPermission} = req.body;
+
+    try{
+        const result = await pool.query(
+        `
+        DELETE FROM role_permissions 
+        WHERE id_rol = $1 
+        AND id_permission = $2 
+        `,
+        [idRol, idPermission]
+        )
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: 'Rol/permiso no encontrado' });
+        }
+        return res.status(200).json({"msg":"eliminando rol/permiso"})
+    }catch(error){
+            
+            console.error(error);
+            return res.status(500).json({ error: "Error al crear los rol/ permiso" });
+    }
+}

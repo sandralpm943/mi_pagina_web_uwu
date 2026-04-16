@@ -34,7 +34,18 @@ export const obternerPermiso = async (req:Request, res: Response) =>{
 
 };
 
-export const crearPermisos = async (_req:Request, res: Response) =>{
+export const crearPermisos = async (req:Request, res: Response) =>{
+    const data = req.body;
+    const {rows} = await pool.query(`
+        INSERT INTO ${DB_TABLE_PERMISSIONS} (nombre) VALUES ($1) 
+        `,
+        [
+            
+            data.nombre
+            
+        ]
+    )
+    return res.json(rows[0]);
     return res.status(200).json({"msg":"creando permisos"})
 }
 export const actualizarPermisos = async (req:Request, res: Response) =>{
@@ -54,7 +65,7 @@ export const actualizarPermisos = async (req:Request, res: Response) =>{
             
             data.nombre,
             //data.id_rol,
-            idpermission
+            idpermission //la id del permiso
 
             ]
         )
@@ -69,6 +80,8 @@ export const actualizarPermisos = async (req:Request, res: Response) =>{
      }
     return res.status(200).json({"msg":"actualizando permisos"})
 };
+
+
 export const eliminarPermisos = async (req:Request, res: Response) =>{
     const { idpermission } = req.params;
     try{
@@ -77,12 +90,12 @@ export const eliminarPermisos = async (req:Request, res: Response) =>{
               `SELECT * FROM ${DB_TABLE_PERMISSIONS} WHERE ${permissionsColumns[0]} = $1`,
               [idpermission]
             );
-            if (result.rowCount === 0) {
-      return res.status(404).json({ error: 'permiso no encontrado' });
-    }
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: 'permiso no encontrado' });
+        }
      await pool.query(
           `DELETE FROM ${DB_TABLE_PERMISSIONS}
-           WHERE id = $1
+           WHERE ${permissionsColumns[0]} = $1
            RETURNING *`,
           [idpermission]
         );

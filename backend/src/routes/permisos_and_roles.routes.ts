@@ -1,16 +1,16 @@
 import express from 'express'
 const router = express.Router()
 
-import { obternerPermisosyroles, crearPermisosyroles} from '../controllers/permisos_y_roles.controllers';
+import { obternerPermissionRole, crearPermissionRole, eliminarPermissionRole} from '../controllers/permisos_y_roles.controllers';
 
-router.get('/',  obternerPermisosyroles);
+router.get('/',  obternerPermissionRole);
 
 // router.get('/:idpermission',obternerPermisoyroles);
 
- router.post('/',crearPermisosyroles);
+ router.post('/',crearPermissionRole);
 
 // router.patch('/:idpermission',actualizarPermisosyroles);
 
-// router.delete('/:idpermission',eliminarPermisosyroles);
+router.delete('/:idpermission',eliminarPermissionRole);
 
 export default router
