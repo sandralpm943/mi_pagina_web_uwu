@@ -53,8 +53,9 @@ export const crearPermissionRole = async  (req:Request, res: Response) =>{
     }
 }
 export const eliminarPermissionRole = async (req:Request, res: Response) =>{
-    const {idRol, idPermission} = req.body;
-
+    const {idrol, idpermission} = req.params;
+    console.log("ID Rol", idrol)
+    console.log("ID permission", idpermission)
     try{
         const result = await pool.query(
         `
@@ -62,7 +63,7 @@ export const eliminarPermissionRole = async (req:Request, res: Response) =>{
         WHERE id_rol = $1 
         AND id_permission = $2 
         `,
-        [idRol, idPermission]
+        [idrol, idpermission]
         )
 
         if (result.rowCount === 0) {

@@ -23,8 +23,8 @@ export const crearRolyPermiso = async(data: object): Promise<role_permission> =>
 // )
 // return res.data
 // }
-// export const eliminarRolesyPermisos = async(idrolesSeleccionado: number) => {
-//     const res = await axios.delete(`${API}/${idrolesSeleccionado}`
-//      //{withCredentials: true}
-//     )
-// }
+ export const eliminarRolesyPermisos = async(idrolesSeleccionado: number, idpermissionSeleccionado:number) => {
+     const res = await axios.delete(`${API}/${idrolesSeleccionado}/${idpermissionSeleccionado}`
+      //{withCredentials: true}
+     )
+}

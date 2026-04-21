@@ -1,6 +1,7 @@
 import {
 obtenerRolyPermiso,
-crearRolyPermiso  
+crearRolyPermiso,
+eliminarRolesyPermisos  
 } from '@/api/rolesypermisos.api'
 import {ref} from 'vue'
 import type { role_permission } from '@/types/role_permission.type';
@@ -46,17 +47,21 @@ export function useRolPermiso() {
 //         idrolesSeleccionado.value = roles.id_rol
        
 //     }
-//    const  eliminarFroles= async(id_permission:number) => {
-//     if (!confirm('¿Seguro que quieres eliminar este permiso?')) return
-//     try{
-//         await eliminarRolesyPermisos(id_permission)
-//         roles_gatos.value = roles_gatos.value.filter(
-//             roles_gatos => roles_gatos.id_rol !== id_permission
-//         )
-//     }catch(error) {
-//         console.error('Error al eliminar rol gato', error)
-//     }
-//    }
+  const  eliminarFRolesPermisos= async(id_permission:number,id_rol:number) => {
+        if (!confirm('¿Seguro que quieres eliminar este permiso?')) return
+        try{
+         await eliminarRolesyPermisos(id_permission,id_rol)
+        role_permission.value = role_permission.value.filter(
+             rp => 
+                !(
+                    rp.id_rol === id_rol &&
+                    rp.id_permission === id_permission
+                )
+         );
+     }catch(error) {
+         console.error('Error al eliminar rol gato', error)
+     }
+    }
 
 
     return{
@@ -64,7 +69,8 @@ export function useRolPermiso() {
         role_permission,
         input_IdRol,
         input_IdPermission,
-        crearFRolesPermission
+        crearFRolesPermission,
+        eliminarFRolesPermisos
         
     }
 }

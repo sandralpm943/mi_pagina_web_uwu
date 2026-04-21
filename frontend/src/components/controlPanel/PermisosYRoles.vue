@@ -29,6 +29,7 @@ const {
 const {
     obtenerFRolesPermissions,
     crearFRolesPermission,
+    eliminarFRolesPermisos,
     role_permission,
     input_IdRol,
     input_IdPermission
@@ -104,6 +105,7 @@ onMounted(() =>{
                     <td>{{ RP.id_rol }}</td>
                     <td>{{ RP.permission }}</td>
                     <td>{{ RP.id_permission }}</td>
+                    <td><button @click="eliminarFRolesPermisos(RP.id_rol, RP.id_permission)" >Eliminar</button></td>
                 </tr>
             </tbody>
         </table>
@@ -111,6 +113,8 @@ onMounted(() =>{
             <input type="text" v-model="input_IdPermission" placeholder="Escribe el permiso id ">
             <input type="text" v-model="input_IdRol" placeholder="Escribe el rol id  ">
             <button type="submit" >Crear</button>
+            
+                
         </form>
     </div>
 </template>

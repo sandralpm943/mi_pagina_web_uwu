@@ -11,6 +11,6 @@ router.get('/',  obternerPermissionRole);
 
 // router.patch('/:idpermission',actualizarPermisosyroles);
 
-router.delete('/:idpermission',eliminarPermissionRole);
+router.delete('/:idrol/:idpermission',eliminarPermissionRole);
 
 export default router
