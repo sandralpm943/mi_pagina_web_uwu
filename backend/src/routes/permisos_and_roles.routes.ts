@@ -1,7 +1,9 @@
 import express from 'express'
 const router = express.Router()
 
-import { obternerPermissionRole, crearPermissionRole, eliminarPermissionRole} from '../controllers/permisos_y_roles.controllers';
+import { obternerPermissionRole, 
+        crearPermissionRole,
+         eliminarPermissionRole} from '../controllers/permisos_y_roles.controllers';
 
 router.get('/',  obternerPermissionRole);
 

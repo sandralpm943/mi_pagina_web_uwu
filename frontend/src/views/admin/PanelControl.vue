@@ -15,6 +15,7 @@ import PermisosYRoles from '@/components/controlPanel/PermisosYRoles.vue';
 
 
 import {admin} from '@/api/auth.api'
+import PermisosModulares from '@/components/controlPanel/PermisosModulares.vue';
     onMounted(() => {
         adminData()
     })
@@ -30,5 +31,6 @@ import {admin} from '@/api/auth.api'
         <p>{{ admin }}</p>
         <usuariosAPI></usuariosAPI>
         <PermisosYRoles></PermisosYRoles>
+        <PermisosModulares></PermisosModulares>
     </main>
 </template>

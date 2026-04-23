@@ -15,7 +15,7 @@ export const DB_TABLE_USUARIOS_DE_GATOS = process.env.DB_TABLE_USUARIOS_DE_GATOS
 export const DB_TABLE_PERMISSIONS = process.env.DB_TABLE_PERMISSIONS;
 export const DB_TABLE_ROLE_PERMISSIONS = process.env.DB_TABLE_ROLE_PERMISSIONS;
 export const DB_TABLE_ROLES_GATOS = process.env.DB_TABLE_ROLES_GATOS;
-
+export const DB_TABLE_ROUTE_PERMISSIONS = process.env.DB_TABLE_ROUTE_PERMISSIONS;
 if(!process.env.SECRET_JWT){
     throw new Error('SECRET_JWT no esta defenida')
 }
