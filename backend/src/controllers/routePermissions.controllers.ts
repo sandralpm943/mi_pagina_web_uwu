@@ -11,7 +11,7 @@ const routePermissionColumns = [
 
 export const obternerpermissionsR = async (_req:Request, res: Response) =>{
     const { rows } = await pool.query(` SELECT ${routePermissionColumns} FROM ${DB_TABLE_ROUTE_PERMISSIONS}`);
-    console.log("Tabla de routesPermissions",DB_TABLE_ROUTE_PERMISSIONS)
+    console.log("Tabla de routes_Permissions",DB_TABLE_ROUTE_PERMISSIONS)
     return res.status(200).json(rows)
 }
 export const obternerPermissionsR = async (req:Request, res: Response) =>{
