@@ -18,9 +18,11 @@ export interface CreateUserParams{
     verified: boolean
 }
 export interface TokenPayload {
+  id: number
   email: string
-  idrol: number
+  id_rol: number
 }
+
 const createUser = async ({ email, password, username, id_rol, verified_token , verified}: CreateUserParams): Promise<User> => {
     const query = {
         text: `INSERT INTO usuarios_de_gatos (username, email, password, id_rol, verified_token, verified)

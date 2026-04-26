@@ -139,7 +139,7 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
         
 
         const token = jwt.sign(
-            { email: useremail.email, idrol: useremail.id_rol },
+            { email: useremail.email, id_rol: useremail.id_rol },
             SECRET_JWT,
             { expiresIn: '1h' }
         );
@@ -160,14 +160,14 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
         return
     }
 };
- export const perfil = async (req: Request &{email?:string} , res: Response) => {
+ export const perfil = async (req: Request &{user?:{email?:string}} , res: Response) => {
     try{
-        if(!req.email){
+        if(!req.user?.email){
             res.status(401).json({ error: "Usuario no autenticado"})
             return 
         }
 
-        const useremail = await usuariosModel.findOneByEmail(req.email)
+        const useremail = await usuariosModel.findOneByEmail(req.user.email)
         if(!useremail){
             res.status(404).json({ error: "Usuario no encontrado"})
             return
@@ -205,19 +205,25 @@ export const loginUsuarioID = async(req:Request, res:Response) =>{
     id_rol: number
  }
 
- interface AuthRequest extends Request {
-    user?:AuthUser
- }
+//  interface AuthRequest extends Request {
+//     user?:AuthUser
+//  }
 
- export const soloAdmin = (req: AuthRequest &{idrol?:number} , res: Response) => {
+ export const soloAdmin = (req: Request &{user?:{email?:AuthUser,id_rol?:number}} , res: Response) => {
    // console.log(req.email)
-    if (!req.idrol) {
+    console.log("SoloAdmin:", req.user?.id_rol)
+    if (!req.user?.email) {
          res.status(401).json({ msg: "No has autenticado" })
          return
     }
 
+    if(!req.user?.id_rol) {
+         res.status(401).json({ msg: "Error no hay rol" })
+         return
+    }
+
     
-    if(req.idrol !== 2) {
+    if(req.user.id_rol !== 2) {
          res.status(403).json ({msg: "No autorizado"})
          return
     }

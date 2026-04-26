@@ -1,26 +1,25 @@
 <script setup lang="ts">
-import { obtenerRoutesPermissions } from '@/api/Routespermissions.api';
-import { useRoutesPermissions } from '@/composables/useRoutesPermissions.composable';
-import { onMounted } from 'vue';
-const {
-obtenerFPermissionsRoutes,
-crearFPermissionsRoutes,
-//resetPermissionRoutesFormulario,
-eliminarFRoutepermission,
-editarFRoutepermissions,
-modoFormularioRoutepermissions,
-routePermiso,
-input_RouteAPI,
-input_Method,
-input_R_IDPermission
+    import { useRoutesPermissions } from '@/composables/useRoutesPermissions.composable';
+    import { onMounted } from 'vue';
 
-} =useRoutesPermissions()
-onMounted(() =>{
-    obtenerRoutesPermissions(),
-    obtenerFPermissionsRoutes()
-})
+    const {
+        obtenerFPermissionsRoutes,
+        crearFPermissionsRoutes,
+        eliminarFRoutepermission,
+        editarFRoutepermissions,
+        modoFormularioRoutepermissions,
+        routePermiso,
+        input_RouteAPI,
+        input_Method,
+        input_R_IDPermission
+    } = useRoutesPermissions()
+    
+    onMounted(() =>{
 
+        obtenerFPermissionsRoutes()
+    })
 </script>
+
 <template>
     <div>
         <h1>Crear rutas</h1>

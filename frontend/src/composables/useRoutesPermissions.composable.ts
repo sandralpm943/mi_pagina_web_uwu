@@ -1,11 +1,14 @@
 import {
-obtenerRoutesPermissions,
-crearRoutePermiso,
-eliminarRoutesPermisos,
-editarRoutesPermisos
+    obtenerRoutesPermissions,
+    crearRoutePermiso,
+    eliminarRoutesPermisos,
+    editarRoutesPermisos
 } from '@/api/Routespermissions.api'
+
 import type { Routepermisos } from "@/types/routePermission.type"
 import {ref} from 'vue'
+
+
 export function  useRoutesPermissions() {
     const routePermiso = ref<Routepermisos[]>([])
     const input_RouteAPI = ref<string>('')
@@ -21,43 +24,42 @@ export function  useRoutesPermissions() {
         idpermissionRouteSeleccionado.value = null;
     }
     const obtenerFPermissionsRoutes = async() => {
-            try{
-                routePermiso.value = await obtenerRoutesPermissions()
-            }catch(error){
-                console.error("error no se obtuvo los routes permissions", error);
-            }
+        try{
+            routePermiso.value = await obtenerRoutesPermissions()
+        }catch(error){
+            console.error("error no se obtuvo los routes permissions", error);
         }
+    }
     const crearFPermissionsRoutes = async() =>{
-        
-    try{
-        let data = {
-            Route: input_RouteAPI.value,
-            method: input_Method.value,
-            idPermission:input_R_IDPermission.value
-        }
-        if (modoFormularioRoutepermissions.value === 'crear') {
-
-            const enviar = await crearRoutePermiso(data)
-        } else{
-            if(!idpermissionRouteSeleccionado.value) {
-                console.error("No hay ID selecionada :(")
-                return
+        try{
+            let data = {
+                route: input_RouteAPI.value,
+                method: input_Method.value,
+                idPermission:input_R_IDPermission.value
             }
-            const editar = await editarRoutesPermisos(idpermissionRouteSeleccionado.value,data)
+            if (modoFormularioRoutepermissions.value === 'crear') {
 
-            const index = routePermiso.value.findIndex(s => s.id_permission === idpermissionRouteSeleccionado.value);
-            if (index !== -1) {
-                routePermiso.value.splice(index, 1, editar);
+                const enviar = await crearRoutePermiso(data)
+            } else{
+                if(!idpermissionRouteSeleccionado.value) {
+                    console.error("No hay ID selecionada :(")
+                    return
+                }
+                const editar = await editarRoutesPermisos(idpermissionRouteSeleccionado.value,data)
+
+                const index = routePermiso.value.findIndex(s => s.id_permission === idpermissionRouteSeleccionado.value);
+                if (index !== -1) {
+                    routePermiso.value.splice(index, 1, editar);
+                }
             }
-        }
-        
-        resetPermissionRoutesFormulario();
+            
+            resetPermissionRoutesFormulario();
 
-    }catch(error){
-        console.error("error no se pudo crear  los permisos routes", error);
+        }catch(error){
+            console.error("error no se pudo crear  los permisos routes", error);
         }
     } 
-     const editarFRoutepermissions = async(Routepermiso: Routepermisos) => {
+    const editarFRoutepermissions = async(Routepermiso: Routepermisos) => {
         input_RouteAPI.value= Routepermiso.route
         input_R_IDPermission.value = Routepermiso.id_permission
         input_Method.value=Routepermiso.method
@@ -74,7 +76,7 @@ export function  useRoutesPermissions() {
         }catch(error) {
             console.error('Error al eliminar permiso route', error)
         }
-       }
+    }
     return{
         obtenerFPermissionsRoutes,
         crearFPermissionsRoutes,
@@ -85,8 +87,7 @@ export function  useRoutesPermissions() {
         modoFormularioRoutepermissions,
         input_RouteAPI,
         input_Method,
-        input_R_IDPermission,
-       //editarRoutesPermisos
+        input_R_IDPermission
     }
 }
 

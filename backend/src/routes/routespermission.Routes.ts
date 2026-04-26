@@ -1,21 +1,20 @@
 import express from 'express'
 const router = express.Router()
 
-import { obternerpermissionsR, 
-        obternerPermissionsR,
+import { obtenerpermissionsR, 
+        obtenerPermissionR,
          crearPermissionR,
         actualizarPermissionR,
         eliminarPermissionR} from '../controllers/routePermissions.controllers';
-router.get('/',  obternerpermissionsR);
 
-router.get('/:idRoutePermission',obternerPermissionsR);
+router.get('/', obtenerpermissionsR);
 
- router.post('/',crearPermissionR);
+router.get('/:idRoutePermission',obtenerPermissionR);
 
- router.patch('/:idRoutePermission',actualizarPermissionR);
+router.post('/',crearPermissionR);
 
-router.delete('/:idrol/:idRoutePermission',eliminarPermissionR);
+router.patch('/:idRoutePermission',actualizarPermissionR);
 
-
+router.delete('/:idrol/:idRoutePermission', eliminarPermissionR);
 
 export default router

@@ -5,7 +5,7 @@ import {upload} from '../milddlewares/upload'
 
 import { verifyToken } from '../milddlewares/jwtmidleware'
 
-import {PERMISSION} from '../config/permissions'
+//import {PERMISSION} from '../config/permissions'
 
 import { authorizePermission } from '../milddlewares/permisssions.middleware'
 import {
@@ -18,15 +18,15 @@ import {
 //import toNewGatosEntry from '../utils'
 const router = express.Router()
 
-router.get('/', verifyToken, authorizePermission(PERMISSION.GATOS_VER), obtenerTiposdeGatos)
+router.get('/', verifyToken, authorizePermission(), obtenerTiposdeGatos)
 
 
-router.post('/', verifyToken, authorizePermission(PERMISSION.GATOS_CREAR), upload.single("imagen"), insertarGatos);
+router.post('/', verifyToken, authorizePermission(), upload.single("imagen"), insertarGatos);
 
-router.patch('/:id', verifyToken, authorizePermission(PERMISSION.GATOS_EDITAR), upload.single("imagen"), actualizarGato);
+router.patch('/:id', verifyToken, authorizePermission(), upload.single("imagen"), actualizarGato);
 
-router.get("/:id", verifyToken, authorizePermission(PERMISSION.GATOS_VER), obtenerGatoPorId);
+router.get("/:id", verifyToken, authorizePermission(), obtenerGatoPorId);
 
-router.delete("/:id", verifyToken, authorizePermission(PERMISSION.GATOS_ELIMINAR), eliminarGato);
+router.delete("/:id", verifyToken, authorizePermission(), eliminarGato);
 
 export default router

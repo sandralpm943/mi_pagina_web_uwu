@@ -1,23 +1,25 @@
 import { pool } from "../db"
 
-const getUserPermissions = async (email:string): Promise<string[]> => {
+const userHasPermission = async (userId: number, route: string, method: string): Promise<boolean> => {
     const result = await pool.query(
         `
-        SELECT permissions.nombre
-        FROM usuarios_de_gatos
-        JOIN roles_gatos 
-        ON usuarios_de_gatos.id_rol = roles_gatos.id_rol
-        JOIN role_permissions 
-        ON roles_gatos.id_rol = role_permissions.id_rol
-        JOIN permissions 
-        ON role_permissions.id_permission = permissions.id_permission
-        WHERE usuarios_de_gatos.email = $1;
-        `,
-        [email]
+        SELECT 1
+                    
+                    FROM usuarios_de_gatos
+
+                    JOIN role_permissions
+                        ON usuarios_de_gatos.id_rol = role_permissions.id_rol
+                    JOIN route_permissions
+                        ON role_permissions.id_permission = route_permissions.id_permission
+                    WHERE usuarios_de_gatos.id = $1
+                    AND route_permissions.route = $2
+                    AND route_permissions.method = $3
+                    `,
+                    [userId,route,method]
     )
    
-    return result.rows.map(row => row.nombre)
+    return result.rowCount !== 0;
 }
 export default{
-    getUserPermissions
+    userHasPermission
 }

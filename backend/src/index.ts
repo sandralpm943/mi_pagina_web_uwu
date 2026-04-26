@@ -10,7 +10,9 @@ import cors from 'cors';
 import { test } from './dbtest'
 
 import authRoutes from './routes/auth.routes'
+
 import adminRoutes from './routes/admin.routes'
+
 import emailRoutes from './routes/mailer.routes'
 import usuariosRoutes from './routes/usuariosGatos.routes'
 import permissionsRoutes from "./routes/permissions.routes"
@@ -50,19 +52,14 @@ app.use('/api/tipos_de_gatos', gatoRouter)
 app.use('/auth', authRoutes)
 
 app.use('/usuarios',usuariosRoutes)
-
 app.use("/permisos", permissionsRoutes)
-
 app.use("/roles", roles_gatosRoutes)
-
 app.use("/permisosyroles", permissionsandRolesRoutes)
-
 app.use("/routespermisos", routespermissionRoutes)
 
 app.use("/admin", adminRoutes)
 
 app.get("/emailTest", emailTest)
-
 app.use("/email",emailRoutes )
 
 app.listen(PORT,()=>{ 

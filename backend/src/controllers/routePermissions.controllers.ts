@@ -9,12 +9,12 @@ const routePermissionColumns = [
     "id_permission" // 3
 ]
 
-export const obternerpermissionsR = async (_req:Request, res: Response) =>{
-    const { rows } = await pool.query(` SELECT ${routePermissionColumns} FROM ${DB_TABLE_ROUTE_PERMISSIONS}`);
-    console.log("Tabla de routes_Permissions",DB_TABLE_ROUTE_PERMISSIONS)
+export const obtenerpermissionsR = async (_req:Request, res: Response) =>{
+    const { rows } = await pool.query(`SELECT ${routePermissionColumns} FROM ${DB_TABLE_ROUTE_PERMISSIONS}`);
+    console.log("Tabla de routes_Permissions", DB_TABLE_ROUTE_PERMISSIONS)
     return res.status(200).json(rows)
 }
-export const obternerPermissionsR = async (req:Request, res: Response) =>{
+export const obtenerPermissionR = async (req:Request, res: Response) =>{
      const { idRoutePermission} = req.params;
      try {
         const result = await pool.query(
@@ -44,9 +44,9 @@ export const crearPermissionR = async (req:Request, res: Response) =>{
         `,
         [
             
-            data.routePermissionColumns[1],
-            data.routePermissionColumns[2],
-            data.routePermissionColumns[3]
+            data.route,
+            data.method,
+            data.idPermission
             
         ]
     )
@@ -69,9 +69,9 @@ export const actualizarPermissionR = async (req:Request, res: Response) =>{
             `,
             [
             
-            data.routePermissionColumns[1],
-            data.routePermissionColumns[2],
-            data.routePermissionColumns[3],
+            data.route,
+            data.method,
+            data.idPermission,
             //data.id_rol,
             idRoutePermission //la id del permiso
 

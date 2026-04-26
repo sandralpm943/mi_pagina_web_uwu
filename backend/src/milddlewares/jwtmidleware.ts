@@ -3,7 +3,9 @@ import jwt from 'jsonwebtoken';
 import {SECRET_JWT} from '../config'
 import {TokenPayload} from '../models/usuario.model'
 
-export const verifyToken = (req: Request &{email?: string, idrol?: number} , res:Response, next: NextFunction) => {
+
+
+export const verifyToken = (req: Request &{user?: object} , res:Response, next: NextFunction) => {
     let token = req.cookies["access-token"]
 
     if(!token) {
@@ -12,14 +14,21 @@ export const verifyToken = (req: Request &{email?: string, idrol?: number} , res
     }
     
     try{
-       const decoded = jwt.verify(token,SECRET_JWT ) as TokenPayload
-       req.email = decoded.email
-       req.idrol = decoded.idrol
+        const decoded = jwt.verify( token, SECRET_JWT ) as TokenPayload
+        req.user = {
+                id: decoded.id,
+                email:decoded.email,
+                id_rol: decoded.id_rol
+        }
 
-      // esto es un debug: comprueba donde estan las cosas console.log("Esto es tu id_rol:",req.idrol)
+        console.log("req.user:", req.user)
+            
+        
+
+        // esto es un debug: comprueba donde estan las cosas console.log("Esto es tu id_rol:",req.idrol)
 
 
-    next();
+        next();
     }catch(error){
         console.log(error)
         res.status(400).json({
