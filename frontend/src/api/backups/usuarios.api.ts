@@ -2,7 +2,7 @@ import type { usuarios } from "@/types/usuarios.types";
 import axios from "axios";
 
 
-const API = "http://localhost:3000/admin/usuarios"
+const API = "http://localhost:3000/usuarios"
 
 export const obtenerUsuarios = async(): Promise<usuarios[]> => {
     const res = await axios.get(`${API}`)
@@ -11,15 +11,15 @@ export const obtenerUsuarios = async(): Promise<usuarios[]> => {
 export const enviarUsuarios = async(id:number, inputsData: object) =>{
     const res = await axios.patch(
         `${API}/${id}`, 
-        inputsData,
-        {withCredentials:true}
+        inputsData
+        //{withCredentials:true}
     )
     return res.data;
 }
 
 export const eliminarUsuario = async(id:number) => {
     const res = await axios.delete(
-        `${API}/${id}`,
-        {withCredentials: true}
+        `${API}/${id}`
+        //{withCredentials: true}
     )
 }

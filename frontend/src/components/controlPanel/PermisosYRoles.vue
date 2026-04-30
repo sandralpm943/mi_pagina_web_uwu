@@ -110,8 +110,8 @@ onMounted(() =>{
             </tbody>
         </table>
          <form @submit.prevent="crearFRolesPermission">
-            <input type="text" v-model="input_IdPermission" placeholder="Escribe el permiso id ">
             <input type="text" v-model="input_IdRol" placeholder="Escribe el rol id  ">
+            <input type="text" v-model="input_IdPermission" placeholder="Escribe el permiso id ">
             <button type="submit" >Crear</button>
             
                 

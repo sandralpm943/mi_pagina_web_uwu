@@ -3,7 +3,7 @@ import {
     crearRoutePermiso,
     eliminarRoutesPermisos,
     editarRoutesPermisos
-} from '@/api/Routespermissions.api'
+} from '@/api/backups/Routespermissions.api'
 
 import type { Routepermisos } from "@/types/routePermission.type"
 import {ref} from 'vue'
