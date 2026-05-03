@@ -1,5 +1,20 @@
 import { pool } from "../db"
 
+const isPublicRoute = async ( route: string, method: string): Promise<boolean> => {
+    const result = await pool.query(
+        `
+            SELECT 1
+            
+            FROM route_permissions
+            WHERE route = $1
+            AND method = $2
+            AND is_public = TRUE
+        `,
+            [route,method]
+    )
+    return result.rowCount !== 0;
+}
+
 const userHasPermission = async (userId: number, route: string, method: string): Promise<boolean> => {
     const result = await pool.query(
         `
@@ -21,5 +36,6 @@ const userHasPermission = async (userId: number, route: string, method: string):
     return result.rowCount !== 0;
 }
 export default{
-    userHasPermission
+    userHasPermission,
+    isPublicRoute
 }

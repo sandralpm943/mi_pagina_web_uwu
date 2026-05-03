@@ -11,7 +11,8 @@
         routePermiso,
         input_RouteAPI,
         input_Method,
-        input_R_IDPermission
+        input_R_IDPermission,
+        input_IsPublic
     } = useRoutesPermissions()
     
     onMounted(() =>{
@@ -27,6 +28,10 @@
             <input type="text" v-model="input_RouteAPI" placeholder="Escribe el Route API ">
             <input type="text" v-model="input_Method" placeholder="Escribe el method  ">
             <input type="text" v-model="input_R_IDPermission" placeholder="Escribe la ID permiso">
+            <select v-model="input_IsPublic">
+                <option :value="true">Publica</option>
+                <option :value="false">Privada</option>
+            </select>
             <button type="submit" >{{ modoFormularioRoutepermissions === 'crear' ? 'crear permiso' : 'Editar permiso' }}</button>
         </form>
         <h1>Tabla de rutas API</h1>
@@ -37,6 +42,7 @@
                     <th>RouteAPI</th>
                     <th>Method</th>
                     <th>ID Permiso</th>
+                    <th>Es publico</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,6 +51,7 @@
                     <td>{{ routePermisos.route }}</td>
                     <td>{{ routePermisos.method }}</td>
                     <td>{{ routePermisos.id_permission }}</td>
+                    <td>{{ routePermisos.is_public }}</td>
                     <td><button @click="editarFRoutepermissions(routePermisos)">Editar</button></td>
                     <td><button @click="eliminarFRoutepermission(routePermisos.id_route_permission)" >Eliminar</button></td>
                 </tr>

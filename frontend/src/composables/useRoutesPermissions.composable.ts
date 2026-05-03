@@ -3,7 +3,7 @@ import {
     crearRoutePermiso,
     eliminarRoutesPermisos,
     editarRoutesPermisos
-} from '@/api/backups/Routespermissions.api'
+} from '@/api/Routespermissions.api'
 
 import type { Routepermisos } from "@/types/routePermission.type"
 import {ref} from 'vue'
@@ -14,6 +14,7 @@ export function  useRoutesPermissions() {
     const input_RouteAPI = ref<string>('')
     const input_Method = ref<string>('')
     const input_R_IDPermission = ref<number | null> (null);
+    const input_IsPublic = ref<boolean>(false)
 
     const modoFormularioRoutepermissions = ref<'crear' | 'editar'>('crear');
     const idpermissionRouteSeleccionado = ref<number | null> (null);
@@ -35,7 +36,8 @@ export function  useRoutesPermissions() {
             let data = {
                 route: input_RouteAPI.value,
                 method: input_Method.value,
-                idPermission:input_R_IDPermission.value
+                idPermission:input_R_IDPermission.value,
+                is_public: input_IsPublic.value
             }
             if (modoFormularioRoutepermissions.value === 'crear') {
 
@@ -87,7 +89,8 @@ export function  useRoutesPermissions() {
         modoFormularioRoutepermissions,
         input_RouteAPI,
         input_Method,
-        input_R_IDPermission
+        input_R_IDPermission,
+        input_IsPublic
     }
 }
 

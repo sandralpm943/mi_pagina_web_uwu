@@ -14,12 +14,9 @@ import authRoutes from './routes/auth.routes'
 import adminRoutes from './routes/admin.routes'
 
 import emailRoutes from './routes/mailer.routes'
-import usuariosRoutes from './routes/usuariosGatos.routes'
-import permissionsRoutes from "./routes/permissions.routes"
-import permissionsandRolesRoutes from './routes/permisos_and_roles.routes'
-import roles_gatosRoutes from './routes/roles_gatos.routes'
+
 import cookieParser from 'cookie-parser'
-import routespermissionRoutes from './routes/routespermission.Routes'
+
 
 import {emailTest} from './milddlewares/mailer.middleware'
 
@@ -51,11 +48,7 @@ app.use('/api/tipos_de_gatos', gatoRouter)
 
 app.use('/auth', authRoutes)
 
-app.use('/usuarios',usuariosRoutes)
-app.use("/permisos", permissionsRoutes)
-app.use("/roles", roles_gatosRoutes)
-app.use("/permisosyroles", permissionsandRolesRoutes)
-app.use("/routespermisos", routespermissionRoutes)
+
 
 app.use("/admin", adminRoutes)
 

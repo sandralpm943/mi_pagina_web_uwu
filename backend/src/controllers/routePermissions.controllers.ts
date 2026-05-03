@@ -6,7 +6,8 @@ const routePermissionColumns = [
     "id_route_permission", //0
     "route", // 1
     "method", // 2
-    "id_permission" // 3
+    "id_permission", // 3
+    "is_public" //4
 ]
 
 export const obtenerpermissionsR = async (_req:Request, res: Response) =>{
@@ -37,8 +38,8 @@ export const crearPermissionR = async (req:Request, res: Response) =>{
     const data = req.body;
     const {rows} = await pool.query(`
          INSERT INTO ${DB_TABLE_ROUTE_PERMISSIONS}
-            (route, method, id_permission)
-            VALUES ($1, $2, $3)
+            (route, method, id_permission,is_public)
+            VALUES ($1, $2, $3, $4)
             RETURNING *
 
         `,
@@ -46,7 +47,8 @@ export const crearPermissionR = async (req:Request, res: Response) =>{
             
             data.route,
             data.method,
-            data.idPermission
+            data.idPermission,
+            data.is_public
             
         ]
     )
@@ -63,8 +65,9 @@ export const actualizarPermissionR = async (req:Request, res: Response) =>{
             UPDATE ${DB_TABLE_ROUTE_PERMISSIONS}
             SET ${routePermissionColumns[1]} = COALESCE ($1,${routePermissionColumns[1]}),
             ${routePermissionColumns[2]} = COALESCE ($2,${routePermissionColumns[2]}), 
-            ${routePermissionColumns[3]} = COALESCE ($3,${routePermissionColumns[3]})
-            WHERE ${routePermissionColumns[0]} = $4
+            ${routePermissionColumns[3]} = COALESCE ($3,${routePermissionColumns[3]}),
+            ${routePermissionColumns[4]} = COALESCE ($4,${routePermissionColumns[4]})
+            WHERE ${routePermissionColumns[0]} = $5
             RETURNING *            
             `,
             [
@@ -72,6 +75,7 @@ export const actualizarPermissionR = async (req:Request, res: Response) =>{
             data.route,
             data.method,
             data.idPermission,
+            data.is_public,
             //data.id_rol,
             idRoutePermission //la id del permiso
 

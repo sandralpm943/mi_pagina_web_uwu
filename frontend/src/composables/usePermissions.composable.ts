@@ -9,10 +9,11 @@ import type { permisos } from '@/types/permisos.type';
 export function usePernissions() {
     
     const permisos = ref<permisos[]>([])
-
+   
     const nombrePermiso = ref<string>('')
     const modoFormulariopermissions = ref<'crear' | 'editar'>('crear');
     const idpermisoSeleccionado = ref<number | null> (null);
+    
     
     const resetPermissionFormulario = () => {
         modoFormulariopermissions.value = 'crear';
@@ -81,6 +82,7 @@ export function usePernissions() {
         resetPermissionFormulario,
         modoFormulariopermissions,
         editarFpermissions,
-        eliminarFpermission
+        eliminarFpermission,
+        
     }
 }

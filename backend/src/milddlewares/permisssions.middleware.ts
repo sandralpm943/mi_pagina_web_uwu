@@ -12,8 +12,11 @@ export const authorizePermission = () => {
     return async (req: AuthRequest, res: Response, next: NextFunction)=> {
         try{
             //Construir ruta real
-            const route = req.originalUrl.split("?")[0]!.replace(/\/$/, "");
-
+            
+            const normalizerRoute= (route:string):string =>{
+                return route.replace(/\/\d+/g, "/:id")
+            }
+            const route = normalizerRoute(req.originalUrl.split("?")[0]!.replace(/\/$/, "")) ;
             // Metodo http
             const method = req.method
 
@@ -21,9 +24,17 @@ export const authorizePermission = () => {
             console.log("Method", method)
 
             //Si es publico:
+            const is_public = await permissionsModel.isPublicRoute(
+                route,
+                method
+            )
 
             //Verificar que existe
-
+            if (is_public){
+                next()
+                return
+            }
+            //Sino
             //Usuario desde el token
             const userId = req.user?.id;
 
